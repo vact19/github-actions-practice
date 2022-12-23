@@ -1,0 +1,26 @@
+name: test
+
+on:
+  push:
+    branches:
+      - main
+  
+  pull_request:
+    branches:
+      - main
+      #- feat/**
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    # 단계별 수행
+    steps: 
+      - name: Checkout
+        uses: actions/checkout@v3 # github에서 제공하는 checkout@v3을 사용할 것.
+      - name: Install node
+        uses: actions/setup-node@v3
+      - run: npm install -g bats # bats 설치
+      - run: bats -v # bats 버전 출력 
+      - run: echo "안아줘요"
+      - run: echo "나는 ${{github.actor}}야"
+      - run: echo "${{github.event_name}} 이라는 이벤트에 의해 실행됨"
